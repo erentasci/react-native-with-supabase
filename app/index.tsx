@@ -37,12 +37,8 @@ const Page = () => {
     });
 
     if (error) Alert.alert(error.message);
-
-    if (!session) {
-      Alert.alert("Check your email for the confirmation link");
-    } else {
-      Alert.alert("Something went wrong");
-    }
+    if (!session)
+      Alert.alert("Please check your inbox for email verification!");
 
     setLoading(false);
   };

@@ -1,43 +1,43 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { supabase } from "@/utils/supabase";
+import { Session } from "@supabase/supabase-js";
+import { Slot, useRouter, useSegments } from "expo-router";
+import { useEffect, useState } from "react";
 import "react-native-reanimated";
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from "expo-router";
+const InitialLayout = () => {
+  const [session, setSession] = useState<Session | null>(null);
+  const [initialized, setInitialized] = useState<boolean>(false);
 
-export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-    ...FontAwesome.font,
-  });
-
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
+  const segments = useSegments();
+  const router = useRouter();
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
+    // Listen for changes to authentication state
+    const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log("supabase.auth.onAuthStateChange", event, session);
+
+      setSession(session);
+      setInitialized(true);
+    });
+    return () => {
+      data.subscription.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!initialized) return;
+
+    const inAuthGroup = segments[0] === "(auth)";
+
+    console.log(inAuthGroup, " segments[0], segments);");
+    if (session) {
+      router.replace("/(auth)");
+    } else if (!session) {
+      router.replace("/");
     }
-  }, [loaded]);
+  }, [initialized, session]);
 
-  if (!loaded) {
-    return null;
-  }
+  return <Slot />;
+};
 
-  return <RootLayoutNav />;
-}
-
-function RootLayoutNav() {
-  return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: true }} />
-    </Stack>
-  );
-}
+export default InitialLayout;

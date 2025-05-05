@@ -1,3 +1,4 @@
+import { AppleAuth } from "@/components/AppleAuth.native";
 import { supabase } from "@/utils/supabase";
 import React, { useState } from "react";
 import {
@@ -84,6 +85,9 @@ const Page = () => {
         <Text style={{ color: "#fff" }}>Sign in</Text>
       </TouchableOpacity>
       <Button onPress={onSignUp} title="Create Account" color={"#fff"}></Button>
+      <View style={{ marginTop: 10, gap: 10, alignItems: "center" }}>
+        <AppleAuth />
+      </View>
     </View>
   );
 };

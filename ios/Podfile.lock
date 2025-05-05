@@ -3,7 +3,7 @@ PODS:
   - DoubleConversion (1.1.6)
   - EXConstants (17.1.5):
     - ExpoModulesCore
-  - Expo (53.0.6):
+  - Expo (53.0.7):
     - DoubleConversion
     - ExpoModulesCore
     - glog
@@ -30,9 +30,11 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - ExpoAsset (11.1.4):
+  - ExpoAppleAuthentication (7.2.4):
     - ExpoModulesCore
-  - ExpoFileSystem (18.1.8):
+  - ExpoAsset (11.1.5):
+    - ExpoModulesCore
+  - ExpoFileSystem (18.1.9):
     - ExpoModulesCore
   - ExpoFont (13.3.1):
     - ExpoModulesCore
@@ -2008,6 +2010,7 @@ DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - EXConstants (from `../node_modules/expo-constants/ios`)
   - Expo (from `../node_modules/expo`)
+  - ExpoAppleAuthentication (from `../node_modules/expo-apple-authentication/ios`)
   - ExpoAsset (from `../node_modules/expo-asset/ios`)
   - ExpoFileSystem (from `../node_modules/expo-file-system/ios`)
   - ExpoFont (from `../node_modules/expo-font/ios`)
@@ -2106,6 +2109,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-constants/ios"
   Expo:
     :path: "../node_modules/expo"
+  ExpoAppleAuthentication:
+    :path: "../node_modules/expo-apple-authentication/ios"
   ExpoAsset:
     :path: "../node_modules/expo-asset/ios"
   ExpoFileSystem:
@@ -2276,9 +2281,10 @@ SPEC CHECKSUMS:
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   EXConstants: a1112af878fddfe6acc0399473ac56a07ced0f47
-  Expo: 7b933ea4fe1ead305fe4d90e54a8de9c0d790d1f
-  ExpoAsset: ecda157f3ef69824d04015fa796dcfbda2304f21
-  ExpoFileSystem: 47ccd351beaa608f80f82a6f13ac8b0524ef529f
+  Expo: add141aa1cdd34f2590f1f2a33e304e7f87be2f9
+  ExpoAppleAuthentication: 4d2e0c88a4463229760f1fbb9a937a810efb6863
+  ExpoAsset: 3bc9adb7dbbf27ae82c18ca97eb988a3ae7e73b1
+  ExpoFileSystem: 0f3f466ecd3560f55768cd3f94ac3a17f093b8e6
   ExpoFont: abbb91a911eb961652c2b0a22eef801860425ed6
   ExpoHead: 0ebd8ad3ff266be8b77b9993345c90a36d9aec46
   ExpoKeepAwake: bf0811570c8da182bfb879169437d4de298376e7

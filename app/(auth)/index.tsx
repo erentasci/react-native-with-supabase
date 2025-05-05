@@ -1,10 +1,25 @@
+import { Todo } from "@/utils/interfaces";
 import { supabase } from "@/utils/supabase";
-import React, { useState } from "react";
-import { Button, StyleSheet, TextInput, View } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  FlatList,
+  ListRenderItem,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 const Page = () => {
   const [todo, setTodo] = useState("");
   const [loading, setLoading] = useState(false);
+  const [todos, setTodos] = useState<Todo[]>();
+
+  useEffect(() => {
+    loadTodos();
+  }, []);
 
   const addTodo = async () => {
     setLoading(true);
@@ -25,6 +40,25 @@ const Page = () => {
     console.log("ADD TODO", result);
     setLoading(false);
     setTodo("");
+  };
+
+  const loadTodos = async () => {
+    let { data } = await supabase
+      .from("todos")
+      .select("*")
+      .order("inserted_at", { ascending: false });
+    setTodos(data || []);
+  };
+
+  const renderRow: ListRenderItem<Todo> = ({ item }) => {
+    return (
+      <View style={{ padding: 12, flexDirection: "row", gap: 10, height: 44 }}>
+        <Text style={{ flex: 1 }}>{item.task}</Text>
+        {item.is_complete && (
+          <Ionicons name="checkmark-done-outline" size={24} color="#151515" />
+        )}
+      </View>
+    );
   };
 
   return (
@@ -53,6 +87,19 @@ const Page = () => {
         />
         <Button title="Add" color={"#2b825b"} onPress={addTodo} />
       </View>
+      <FlatList
+        data={todos}
+        renderItem={renderRow}
+        ItemSeparatorComponent={() => (
+          <View
+            style={{
+              height: StyleSheet.hairlineWidth,
+              width: "100%",
+              backgroundColor: "gray",
+            }}
+          />
+        )}
+      />
     </View>
   );
 };
